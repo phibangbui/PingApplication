@@ -22,5 +22,22 @@ namespace PingCheck.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>google.com</string>
+  <string>facebook.com</string>
+  <string>youtube.com</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection websites {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["websites"]));
+            }
+            set {
+                this["websites"] = value;
+            }
+        }
     }
 }
