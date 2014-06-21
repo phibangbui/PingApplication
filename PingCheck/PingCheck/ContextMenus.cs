@@ -27,7 +27,7 @@ namespace PingCheck
             foreach (string site in siteArray) {
                 ToolStripMenuItem subitem = new ToolStripMenuItem(site);
                 subitem.Click += new EventHandler(Site_Handler);
-                item.DropDown.Items.Add(new ToolStripMenuItem(site));
+                item.DropDown.Items.Add(subitem);
             }
             item.Text = "Websites";
             menu.Items.Add(item);
@@ -67,13 +67,13 @@ namespace PingCheck
         }
 
         /// <summary>
-        /// Processes a menu item.
+        /// Changes the uri to ping to website
         /// </summary>
-        /// <param name="sender">The sender.</param>
+        /// <param name="sender">The submenuitems site name</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         void Site_Handler(object sender, EventArgs e)
         {
-            
+
         }
 
     }
