@@ -14,6 +14,7 @@ namespace PingCheck
         const bool SEND_BOOL = true;
         Timer myTimer;
         public String website;
+        public String returnMessage;
         public Pinger()
         {
             Timer myTimer = new Timer();
@@ -22,7 +23,7 @@ namespace PingCheck
             myTimer.Enabled = SEND_BOOL;
         }
 
-        private String pingSite(object source, ElapsedEventArgs e)
+        private void pingSite(object source, ElapsedEventArgs e)
         {
             PingOptions pingOptions = new PingOptions(128, true);
             Ping ping = new Ping();
@@ -49,7 +50,6 @@ namespace PingCheck
                         returnMessage = "Connection failed for an unknown reason...";
                 }
             }
-            return returnMessage;
         }
 
 
