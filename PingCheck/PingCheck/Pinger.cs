@@ -43,7 +43,7 @@ namespace PingCheck
                         }
                         else
                         {
-                            returnMessage = "Ping timed out";
+                            returnMessage = "Ping timed out"; 
                         }
                     }
                     else
@@ -55,8 +55,21 @@ namespace PingCheck
 
         private bool HasConnection()
         {
-            return true;
+                Uri url = new Uri("www.abhisheksur.com");
+                string pingurl = string.Format("{0}", url.Host);
+                string host = pingurl;
+                bool result = false;
+                Ping p = new Ping();
+                try
+                {
+                    PingReply reply = p.Send(host, 3000);
+                    if (reply.Status == IPStatus.Success)
+                    return true;
+                }
+                catch { }
+                return result;
+            }
         }
-    }
 }
+
 
