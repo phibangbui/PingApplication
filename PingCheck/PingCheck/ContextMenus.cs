@@ -22,7 +22,7 @@ namespace PingCheck
             ToolStripMenuItem item;
             ToolStripSeparator sep;
 
-            // Windows Explorer.
+            // Websites 
             item = new ToolStripMenuItem();
             foreach (string site in siteArray) {
                 ToolStripMenuItem subitem = new ToolStripMenuItem(site);
@@ -46,13 +46,13 @@ namespace PingCheck
         }
 
         /// <summary>
-        /// Handles the Click event of the Explorer control.
+        /// Changes the uri to ping to website
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
+        /// <param name="sender">The submenuitems site name</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        void Explorer_Click(object sender, EventArgs e)
+        void Site_Handler(object sender, EventArgs e)
         {
-             
+            
         }
 
         /// <summary>
@@ -66,15 +66,7 @@ namespace PingCheck
             Application.Exit();
         }
 
-        /// <summary>
-        /// Changes the uri to ping to website
-        /// </summary>
-        /// <param name="sender">The submenuitems site name</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        void Site_Handler(object sender, EventArgs e)
-        {
 
-        }
 
     }
 }
