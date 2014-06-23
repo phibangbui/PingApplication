@@ -25,7 +25,7 @@ namespace PingCheck
                 Application.Run();
             }
 
-            Pinger pinger = new Pinger();
+
 
         }
     }
