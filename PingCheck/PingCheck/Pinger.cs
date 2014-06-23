@@ -55,7 +55,7 @@ namespace PingCheck
 
         private bool HasConnection()
         {
-                Uri url = new Uri("www.abhisheksur.com");
+                Uri url = new Uri("www.google.com");
                 string pingurl = string.Format("{0}", url.Host);
                 string host = pingurl;
                 bool result = false;
