@@ -24,7 +24,7 @@ namespace PingCheck
         // Displays icon in system tray and populates menu with options.
         public void Display(){
 
-            ni.Icon = Resources.Icon1;
+            ni.Icon = Resources.goodlogo;
             ni.Text = "Ping application";
             ni.Visible = true;
 
