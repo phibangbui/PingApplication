@@ -56,7 +56,6 @@ namespace PingCheck
         void Site_Handler(object sender, EventArgs e)
         {
             pinger.website = sender.ToString();
-            Debug.WriteLine(pinger.website);
         }
 
         /// <summary>
