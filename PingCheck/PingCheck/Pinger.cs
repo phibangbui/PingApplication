@@ -70,7 +70,10 @@ namespace PingCheck
                 {
                     PingReply reply = p.Send(host, 3000);
                     if (reply.Status == IPStatus.Success)
-                    return true;
+                    {
+                        result = true;
+                        return result;
+                    }  
                 }
                 catch { }
                 return result;
