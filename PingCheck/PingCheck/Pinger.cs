@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,7 @@ namespace PingCheck
 {
     class Pinger
     {
-        const int PING_INTERVAL = 10000;
+        const int PING_INTERVAL = 4000;
         const bool SEND_BOOL = true;
         Timer myTimer;
         public String website;
@@ -30,32 +32,36 @@ namespace PingCheck
             byte[] buffer = new byte[32];
             string returnMessage = string.Empty;
 
-            if (HasConnection())
+            if (website != null)
             {
-                for (int i = 0; i < 4; i++)
+                if (HasConnection())
                 {
-                    PingReply pingReply = ping.Send(website, 1000, buffer, pingOptions);
-                    if (!(pingReply == null))
+                    IPAddress[] address = Dns.GetHostAddresses(website);
+                    for (int i = 0; i < 4; i++)
                     {
-                        if (pingReply.Status == IPStatus.Success)
+                        PingReply pingReply = ping.Send(address[0], 1000, buffer, pingOptions);
+                        if (!(pingReply == null))
                         {
-                            returnMessage = string.Format("Reply from {0}: bytes={1} time={2}ms TTL={3}", pingReply.Address, pingReply.Buffer.Length, pingReply.RoundtripTime, pingReply.Options.Ttl);
+                            if (pingReply.Status == IPStatus.Success)
+                            {
+                                returnMessage = string.Format("Reply from {0}: bytes={1} time={2}ms TTL={3}", pingReply.Address, pingReply.Buffer.Length, pingReply.RoundtripTime, pingReply.Options.Ttl);
+                            }
+                            else
+                            {
+                                returnMessage = "Ping timed out";
+                            }
                         }
                         else
-                        {
-                            returnMessage = "Ping timed out"; 
-                        }
+                            returnMessage = "Connection failed for an unknown reason...";
+
                     }
-                    else
-                        returnMessage = "Connection failed for an unknown reason...";
                 }
             }
         }
 
-
         private bool HasConnection()
         {
-                Uri url = new Uri("www.google.com");
+            Uri url = new Uri("http://google.ca/");
                 string pingurl = string.Format("{0}", url.Host);
                 string host = pingurl;
                 bool result = false;
