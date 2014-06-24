@@ -17,21 +17,21 @@ namespace PingCheck
         private NotifyIcon ni;
 
         // Constructor
-        public taskbarIcon(){
+        public taskbarIcon()
+        {
             ni = new NotifyIcon();
         }
 
         // Displays icon in system tray and populates menu with options.
-        public void Display(){
-
+        public void Display()
+        {
             ni.Icon = Resources.goodlogo;
-            ni.Text = "Ping application";
             ni.Visible = true;
-
             ni.ContextMenuStrip = new ContextMenus().Create();
         }
 
-        public void Dispose() {
+        public void Dispose() 
+        {
             ni.Dispose();
         }
         

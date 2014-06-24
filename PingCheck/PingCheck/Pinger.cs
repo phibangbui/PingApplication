@@ -14,9 +14,8 @@ namespace PingCheck
     {
         const int PING_INTERVAL = 4000;
         const bool SEND_BOOL = true;
-        Timer myTimer;
-        public String website;
-        public String returnMessage;
+        public static String website;
+        int average;
         public Pinger()
         {
             Timer myTimer = new Timer();
@@ -31,6 +30,7 @@ namespace PingCheck
             Ping ping = new Ping();
             byte[] buffer = new byte[32];
             string returnMessage = string.Empty;
+            int[] roundtripholder = new int[4];
 
             if (website != null)
             {
@@ -44,6 +44,7 @@ namespace PingCheck
                         {
                             if (pingReply.Status == IPStatus.Success)
                             {
+                                roundtripholder[i] = (int) pingReply.RoundtripTime;
                                 returnMessage = string.Format("Reply from {0}: bytes={1} time={2}ms TTL={3}", pingReply.Address, pingReply.Buffer.Length, pingReply.RoundtripTime, pingReply.Options.Ttl);
                             }
                             else
@@ -55,6 +56,8 @@ namespace PingCheck
                             returnMessage = "Connection failed for an unknown reason...";
 
                     }
+                    average = (int) roundtripholder.Average();
+                    Debug.WriteLine(average.ToString());
                 }
             }
         }

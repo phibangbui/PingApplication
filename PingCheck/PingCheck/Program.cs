@@ -21,7 +21,6 @@ namespace PingCheck
             using (taskbarIcon ti = new taskbarIcon())
             {
                 ti.Display();
-
                 Application.Run();
             }
 
