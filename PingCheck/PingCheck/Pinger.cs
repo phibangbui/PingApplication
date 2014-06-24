@@ -15,10 +15,13 @@ namespace PingCheck
         const int PING_INTERVAL = 4000;
         const bool SEND_BOOL = true;
         Timer myTimer;
-        public String website;
+        public static String website;
         public String returnMessage;
-        public Pinger()
-        {
+        taskbarIcon taskIcon;
+
+        public Pinger() {
+            taskbarIcon taskIcon = new taskbarIcon();
+            taskIcon.Display();
             Timer myTimer = new Timer();
             myTimer.Elapsed += new ElapsedEventHandler(pingSite);
             myTimer.Interval = PING_INTERVAL;

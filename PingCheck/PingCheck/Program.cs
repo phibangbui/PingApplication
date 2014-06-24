@@ -18,15 +18,12 @@ namespace PingCheck
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            using (taskbarIcon ti = new taskbarIcon())
-            {
-                ti.Display();
-
-                Application.Run();
+            Pinger pinger = new Pinger();
+            Application.Run();
             }
 
 
 
         }
     }
-}
+
