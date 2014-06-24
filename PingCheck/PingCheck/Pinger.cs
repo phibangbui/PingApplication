@@ -16,8 +16,11 @@ namespace PingCheck
         const bool SEND_BOOL = true;
         public static String website;
         int average;
+        taskbarIcon taskIcon = new taskbarIcon();
+
         public Pinger()
         {
+            taskIcon.Display();
             Timer myTimer = new Timer();
             myTimer.Elapsed += new ElapsedEventHandler(pingSite);
             myTimer.Interval = PING_INTERVAL;
@@ -57,6 +60,7 @@ namespace PingCheck
 
                     }
                     average = (int) roundtripholder.Average();
+                    taskIcon.changeIcon(average);
                     Debug.WriteLine(average.ToString());
                 }
             }
@@ -79,6 +83,7 @@ namespace PingCheck
                     }  
                 }
                 catch { }
+                taskIcon.Display();
                 return result;
             }
         }
