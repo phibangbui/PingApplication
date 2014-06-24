@@ -39,14 +39,17 @@ namespace PingCheck
             if (ping >= 200)
             {
                 ni.Icon = Resources.badlogo;
+                ni.Text = Pinger.average + "ms";
             }
             else if (ping < 200 && ping > 100)
             {
                 ni.Icon = Resources.okaylogo;
+                ni.Text = Pinger.average + "ms";
             }
             else if (ping <= 100)
             {
                 ni.Icon = Resources.goodlogo;
+                ni.Text = Pinger.average + "ms";
             }
         }
         
