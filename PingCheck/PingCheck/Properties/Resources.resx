@@ -124,6 +124,9 @@
   <data name="goodlogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\goodlogo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="noconnectionlogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\noconnectionlogo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="okaylogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\okaylogo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

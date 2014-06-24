@@ -78,6 +78,7 @@
   <ItemGroup>
     <Content Include="goodlogo.ico" />
     <Content Include="Readme.txt" />
+    <None Include="Resources\noconnectionlogo.ico" />
     <None Include="Resources\okaylogo.ico" />
     <None Include="Resources\goodlogo.ico" />
     <None Include="Resources\badlogo.ico" />
