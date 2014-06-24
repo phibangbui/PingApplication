@@ -14,7 +14,7 @@ namespace PingCheck
     {
         const int PING_INTERVAL = 4000;
         const bool SEND_BOOL = true;
-        public static String website;
+        public String website;
         int average;
         public Pinger()
         {
