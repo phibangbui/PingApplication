@@ -10,5 +10,8 @@
   &lt;string&gt;youtube.com&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
+    <Setting Name="default_config" Type="System.String" Scope="User">
+      <Value Profile="(Default)">default_sites.txt</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -17,8 +17,7 @@ namespace PingCheck
         {
             // Add the default menu options.
 
-            string[] siteArray = new string[Properties.Settings.Default.websites.Count];
-            Properties.Settings.Default.websites.CopyTo(siteArray, 0);
+            List<string> siteList = SiteListReader.generateSiteList(Properties.Settings.Default.default_config);
             ContextMenuStrip menu = new ContextMenuStrip();
             ToolStripMenuItem item;
             ToolStripSeparator sep;
@@ -26,7 +25,7 @@ namespace PingCheck
 
             // Websites 
             item = new ToolStripMenuItem();
-            foreach (string site in siteArray) {
+            foreach (string site in siteList) {
                 ToolStripMenuItem subitem = new ToolStripMenuItem(site);
                 subitem.Click += new EventHandler(Site_Handler);
                 item.DropDown.Items.Add(subitem);
