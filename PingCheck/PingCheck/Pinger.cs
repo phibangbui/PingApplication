@@ -35,15 +35,13 @@ namespace PingCheck
             string returnMessage = string.Empty;
             int[] roundtripholder = new int[4];
 
-            if (website != null)
-            {
-                if (HasConnection())
+        if (website != null && HasConnection())
                 {
                     IPAddress[] address = Dns.GetHostAddresses(website);
                     for (int i = 0; i < 4; i++)
                     {
                         PingReply pingReply = ping.Send(address[0], 1000, buffer, pingOptions);
-                        if (!(pingReply == null))
+                        if (pingReply != null)
                         {
                             if (pingReply.Status == IPStatus.Success)
                             {
@@ -60,9 +58,8 @@ namespace PingCheck
 
                     }
                     average = (int) roundtripholder.Average();
-                    taskIcon.changeIcon(average);
+                    taskIcon.changeIcon(average, website);
                 }
-            }
         }
 
         private bool HasConnection()
