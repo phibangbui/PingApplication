@@ -25,7 +25,7 @@ namespace PingCheck
         // Displays icon in system tray and populates menu with options.
         public void Display()
         {
-            ni.Icon = Resources.goodlogo;
+            ni.Icon = Resources.noconnectionlogo;
             ni.Visible = true;
             ni.ContextMenuStrip = new ContextMenus().Create();
         }
@@ -33,6 +33,21 @@ namespace PingCheck
         public void Dispose() 
         {
             ni.Dispose();
+        }
+        public void changeIcon(int ping)
+        {
+            if (ping >= 200)
+            {
+                ni.Icon = Resources.badlogo;
+            }
+            else if (ping < 200 && ping > 100)
+            {
+                ni.Icon = Resources.okaylogo;
+            }
+            else if (ping <= 100)
+            {
+                ni.Icon = Resources.goodlogo;
+            }
         }
         
 
