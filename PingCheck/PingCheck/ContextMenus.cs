@@ -55,7 +55,7 @@ namespace PingCheck
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         void Site_Handler(object sender, EventArgs e)
         {
-            Pinger.website = sender.ToString();
+            pinger.website = sender.ToString();
         }
 
         /// <summary>
