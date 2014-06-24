@@ -40,7 +40,6 @@ namespace PingCheck
             {
                 ni.Icon = Resources.badlogo;
                 ni.Text = Pinger.average + "ms to " + website;
-
             }
             else if (ping < 200 && ping > 100)
             {

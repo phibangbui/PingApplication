@@ -16,7 +16,6 @@ namespace PingCheck
         const bool SEND_BOOL = true;
         public static String website;
         public static int average;
-
         taskbarIcon taskIcon = new taskbarIcon();
 
         public Pinger()
