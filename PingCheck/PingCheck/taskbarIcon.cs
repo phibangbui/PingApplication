@@ -15,6 +15,7 @@ namespace PingCheck
     {
         // Fields for taskbarIcon object
         private NotifyIcon ni;
+        public bool highping = false;
 
         // Constructor
         public taskbarIcon()
@@ -34,6 +35,7 @@ namespace PingCheck
         {
             ni.Dispose();
         }
+
         public void changeIcon(int ping, String website)
         {
             if (!Pinger.connectiontosite)
@@ -45,19 +47,31 @@ namespace PingCheck
             {
                 ni.Icon = Resources.badlogo;
                 ni.Text = Pinger.average + "ms to " + website;
+                this.pingNotification(highping);
+                highping = true;
             }
             else if (ping < 200 && ping > 100)
             {
                 ni.Icon = Resources.okaylogo;
                 ni.Text = Pinger.average + "ms to " + website;
+                highping = false;
             }
             else if (ping <= 100)
             {
                 ni.Icon = Resources.goodlogo;
                 ni.Text = Pinger.average + "ms to " + website;
+                highping = false;
             }
         }
-        
 
+        public void pingNotification(bool ping)
+        {
+            if (ping == false)
+            {
+                ni.BalloonTipTitle = "High Ping";
+                ni.BalloonTipText = "Warning, High Ping Detected";
+                ni.ShowBalloonTip(10000);
+            }
+        }
     }
 }
