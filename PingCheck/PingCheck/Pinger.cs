@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -16,6 +17,7 @@ namespace PingCheck
         const bool SEND_BOOL = true;
         public static String website;
         public static int average;
+        public static bool connectiontosite;
 
         taskbarIcon taskIcon = new taskbarIcon();
 
@@ -38,35 +40,48 @@ namespace PingCheck
 
             if (website != null)
             {
-                if (HasConnection())
+                if (CheckConnection())
                 {
-                    IPAddress[] address = Dns.GetHostAddresses(website);
-                    for (int i = 0; i < 4; i++)
+                    try
                     {
-                        PingReply pingReply = ping.Send(address[0], 1000, buffer, pingOptions);
-                        if (!(pingReply == null))
+                        IPAddress[] address = Dns.GetHostAddresses(website);
+                        for (int i = 0; i < 4; i++)
                         {
-                            if (pingReply.Status == IPStatus.Success)
+                            PingReply pingReply = ping.Send(address[0], 1000, buffer, pingOptions);
+                            if (!(pingReply == null))
                             {
-                                roundtripholder[i] = (int) pingReply.RoundtripTime;
-                                returnMessage = string.Format("Reply from {0}: bytes={1} time={2}ms TTL={3}", pingReply.Address, pingReply.Buffer.Length, pingReply.RoundtripTime, pingReply.Options.Ttl);
+                                if (pingReply.Status == IPStatus.Success)
+                                {
+                                    roundtripholder[i] = (int)pingReply.RoundtripTime;
+                                    returnMessage = string.Format("Reply from {0}: bytes={1} time={2}ms TTL={3}", pingReply.Address, pingReply.Buffer.Length, pingReply.RoundtripTime, pingReply.Options.Ttl);
+                                    connectiontosite = true;
+                                }
+                                else
+                                {
+                                    returnMessage = "Ping timed out";
+                                    connectiontosite = false;
+                                }
                             }
                             else
                             {
-                                returnMessage = "Ping timed out";
+                                returnMessage = "Connection failed for an unknown reason...";
+                                connectiontosite = false;
                             }
                         }
-                        else
-                            returnMessage = "Connection failed for an unknown reason...";
-
+                        average = (int)roundtripholder.Average();
+                        taskIcon.changeIcon(average);
                     }
-                    average = (int) roundtripholder.Average();
-                    taskIcon.changeIcon(average);
+                    catch
+                    {
+                        returnMessage = "Could not find IP Address";
+                        connectiontosite = false;
+                        taskIcon.changeIcon(0);
+                    }
                 }
             }
         }
 
-        private bool HasConnection()
+        private bool CheckConnection()
         {
             Uri url = new Uri("http://google.ca/");
                 string pingurl = string.Format("{0}", url.Host);
@@ -79,7 +94,6 @@ namespace PingCheck
                     if (reply.Status == IPStatus.Success)
                     {
                         result = true;
-                        return result;
                     }  
                 }
                 catch { }
