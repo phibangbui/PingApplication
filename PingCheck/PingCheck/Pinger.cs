@@ -13,11 +13,11 @@ namespace PingCheck
 {
     class Pinger
     {
-        const int PING_INTERVAL = 4000;
+        const int PING_INTERVAL = 6000;
         const bool SEND_BOOL = true;
         public static String website;
         public static int average;
-        public static bool connectiontosite;
+        public static bool connectiontosite = false;
 
         taskbarIcon taskIcon = new taskbarIcon();
 
@@ -42,10 +42,11 @@ namespace PingCheck
             {
                     try
                     {
-                        IPAddress[] address = Dns.GetHostAddresses(website);
+                        IPAddress address = Dns.GetHostAddresses(website)[0];
+                        connectiontosite = true;
                         for (int i = 0; i < 4; i++)
                         {
-                            PingReply pingReply = ping.Send(address[0], 1000, buffer, pingOptions);
+                            PingReply pingReply = ping.Send(address, 1000, buffer, pingOptions);
                             if (!(pingReply == null))
                             {
                                 if (pingReply.Status == IPStatus.Success)
@@ -67,13 +68,13 @@ namespace PingCheck
                             }
                         }
                         average = (int)roundtripholder.Average();
-                        taskIcon.changeIcon(average);
+                        taskIcon.changeIcon(average, website);
                     }
                     catch
                     {
                         returnMessage = "Could not find IP Address";
                         connectiontosite = false;
-                        taskIcon.changeIcon(0);
+                        taskIcon.changeIcon(0, website);
                     }
             }
         }
@@ -93,8 +94,8 @@ namespace PingCheck
                         result = true;
                     }  
                 }
-                catch { }
-                taskIcon.Display();
+                catch 
+                { }
                 return result;
             }
         }
