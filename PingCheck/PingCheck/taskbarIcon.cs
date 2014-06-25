@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PingCheck.Properties;
 using System.Diagnostics;
+using System.Timers;
 
 namespace PingCheck
 {
@@ -16,6 +17,7 @@ namespace PingCheck
         // Fields for taskbarIcon object
         private NotifyIcon ni;
         public bool highping = false;
+        public bool showNotification = true;
 
         // Constructor
         public taskbarIcon()
@@ -47,8 +49,8 @@ namespace PingCheck
             {
                 ni.Icon = Resources.badlogo;
                 ni.Text = Pinger.average + "ms to " + website;
-                this.pingNotification(highping);
                 highping = true;
+                this.pingNotification(highping);
             }
             else if (ping < 200 && ping > 100)
             {
@@ -64,14 +66,31 @@ namespace PingCheck
             }
         }
 
-        public void pingNotification(bool ping)
+        public void pingNotification(bool highping)
         {
-            if (ping == false)
+            if (highping == true && showNotification == true)
             {
-                ni.BalloonTipTitle = "High Ping";
-                ni.BalloonTipText = "Warning, High Ping Detected";
-                ni.ShowBalloonTip(10000);
+                ni.BalloonTipText = "High Ping!: " + Pinger.average + "ms";
+                ni.ShowBalloonTip(6000);
+                ni.BalloonTipClicked += new EventHandler(dismissPing);
             }
         }
+
+        public void dismissPing(object sender, EventArgs e)
+        {
+            showNotification = false;
+            System.Timers.Timer sleepTimer = new System.Timers.Timer();
+            sleepTimer.Interval = 300000;
+            sleepTimer.Enabled = true;
+            sleepTimer.Elapsed += new ElapsedEventHandler(sleepPing);
+            sleepTimer.Start();
+        }
+
+        public void sleepPing(object source, ElapsedEventArgs e)
+        {
+            showNotification = true;
+            ((System.Timers.Timer)source).Close();
+        }
+
     }
 }
