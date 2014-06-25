@@ -17,13 +17,8 @@ namespace PingCheck
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             Pinger pinger = new Pinger();
             Application.Run();
-            
-
-
-
         }
     }
 }

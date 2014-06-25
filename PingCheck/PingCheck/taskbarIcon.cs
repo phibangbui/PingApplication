@@ -36,7 +36,12 @@ namespace PingCheck
         }
         public void changeIcon(int ping, String website)
         {
-            if (ping >= 200)
+            if (!Pinger.connectiontosite)
+            {
+                ni.Icon = Resources.noconnectionlogo;
+                ni.Text = "Could not contact website";
+            }
+            else if (ping >= 200)
             {
                 ni.Icon = Resources.badlogo;
                 ni.Text = Pinger.average + "ms to " + website;
