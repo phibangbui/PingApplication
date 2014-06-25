@@ -38,10 +38,8 @@ namespace PingCheck
             string returnMessage = string.Empty;
             int[] roundtripholder = new int[4];
 
-            if (website != null)
+            if (website != null && CheckConnection())
             {
-                if (CheckConnection())
-                {
                     try
                     {
                         IPAddress[] address = Dns.GetHostAddresses(website);
@@ -77,7 +75,6 @@ namespace PingCheck
                         connectiontosite = false;
                         taskIcon.changeIcon(0);
                     }
-                }
             }
         }
 
