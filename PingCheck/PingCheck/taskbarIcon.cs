@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using PingCheck.Properties;
 using System.Diagnostics;
 using System.Timers;
+using System.Media;
 
 namespace PingCheck
 {
@@ -16,8 +17,10 @@ namespace PingCheck
     {
         // Fields for taskbarIcon object
         private NotifyIcon ni;
+        public SoundPlayer alertSound = new SoundPlayer(Resources.sound);
         public bool highping = false;
         public bool showNotification = true;
+        public bool showAlarm = true;
 
         // Constructor
         public taskbarIcon()
@@ -49,8 +52,9 @@ namespace PingCheck
             {
                 ni.Icon = Resources.badlogo;
                 ni.Text = Pinger.average + "ms to " + website;
-                highping = true;
+                this.pingAlert(highping);
                 this.pingNotification(highping);
+                highping = true;
             }
             else if (ping < 200 && ping > 100)
             {
@@ -92,5 +96,24 @@ namespace PingCheck
             ((System.Timers.Timer)source).Close();
         }
 
+        public void pingAlert(bool highping)
+        {
+            if (highping == true && showAlarm == true)
+            {
+                showAlarm = false;
+                alertSound.Play();
+                System.Timers.Timer alertTimer = new System.Timers.Timer();
+                alertTimer.Interval = 60000;
+                alertTimer.Enabled = true;
+                alertTimer.Elapsed += new ElapsedEventHandler(sleepAlarm);
+                alertTimer.Start();
+            }
+        }
+
+        public void sleepAlarm(object source, ElapsedEventArgs e)
+        {
+            showAlarm = true;
+            ((System.Timers.Timer)source).Close();
+        }
     }
 }
